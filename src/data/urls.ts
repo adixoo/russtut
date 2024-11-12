@@ -25,10 +25,10 @@ async function getUrls(): Promise<
   try {
     const url = `https://api.github.com/repos/adixoo/rust-for-beginners/contents/content?ref=main`;
     const response = await fetch(url, {
-      headers: {
-        Authorization: `token ${process.env.GITHUB_TOKEN!}`,
-        Accept: "application/vnd.github.v3+json",
-      },
+      // headers: {
+      //   Authorization: `token ${process.env.GITHUB_TOKEN!}`,
+      //   Accept: "application/vnd.github.v3+json",
+      // },
       cache: "force-cache",
     });
     data = (await response.json()) as Root[] | { message: string };
