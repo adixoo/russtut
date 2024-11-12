@@ -4,7 +4,6 @@ import "./globals.css";
 import NextTopLoader from "nextjs-toploader";
 import Link from "next/link";
 import { urls } from "@/data/urls";
-import Script from "next/dist/client/script";
 import { ThemeProvider } from "./theme-provider";
 import { ModeToggle } from "./mode-toggle";
 const outfit = Outfit({
@@ -36,9 +35,27 @@ export default function RootLayout({
         >
           <header className="fixed left-0 top-0 z-50 w-full border-b bg-background">
             <div className="container mx-auto flex items-center justify-between py-3">
-              <h1>RussTut</h1>
+              <Link href="/" className="text-xl font-bold text-primary">
+                RussTut
+              </Link>
 
-              <div className="">
+              <div className="flex items-center gap-4">
+                <a
+                  href="https://github.com/adixoo/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm text-muted-foreground underline transition-colors hover:text-foreground"
+                >
+                  Created by @adixoo
+                </a>
+                <a
+                  href="https://github.com/adixoo/rust-for-beginners"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm text-muted-foreground underline transition-colors hover:text-foreground"
+                >
+                  Github
+                </a>
                 <ModeToggle />
               </div>
             </div>
@@ -50,7 +67,7 @@ export default function RootLayout({
                   <li
                     key={url.rank}
                     data-rank={url.rank}
-                    className="relative pl-6 hover:text-primary"
+                    className="relative pl-6 text-sm hover:text-primary"
                   >
                     <Link href={`/${key}`}>{url.chapter}</Link>
                   </li>

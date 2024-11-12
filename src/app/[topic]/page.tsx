@@ -2,19 +2,23 @@ import Markdown from "markdown-to-jsx";
 import { notFound } from "next/navigation";
 import { urls } from "@/data/urls";
 import React from "react";
-import {
-  CodeBlock,
-  MarkdownLink,
-  TypographyBlockquote,
-  TypographyH1,
-  TypographyH2,
-  TypographyH3,
-  TypographyH4,
-  TypographyListItem,
-  TypographyOrderedList,
-  TypographyP,
-  TypographyUnorderedList,
-} from "./components";
+import { CodeBlock, MarkdownLink } from "./components";
+
+import type { Metadata } from "next";
+
+type Props = {
+  params: { topic: string };
+};
+
+export const dynamic = "force-static";
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const topic = (await params).topic;
+  const url = urls[topic].chapter;
+  return {
+    title: url,
+  };
+}
+
 async function getData(topic: string) {
   try {
     const url = urls[topic].content;
@@ -31,11 +35,12 @@ async function getData(topic: string) {
 }
 
 // Call the function to fetch and log the markdown content
-export default async function Page({ params }: { params: { topic: string } }) {
+export default async function Page({ params }: Props) {
   const markdownContent = await getData((await params).topic);
 
   if (!markdownContent) return notFound();
 
+  console.log(markdownContent);
   return (
     <>
       <Markdown
