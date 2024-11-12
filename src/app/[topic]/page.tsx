@@ -6,9 +6,7 @@ import { CodeBlock, MarkdownLink } from "./components";
 
 import type { Metadata } from "next";
 
-type Props = {
-  params: { topic: string };
-};
+type Props = { params: Promise<{ topic: string }> };
 
 export const dynamic = "force-static";
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -34,13 +32,12 @@ async function getData(topic: string) {
   }
 }
 
-// Call the function to fetch and log the markdown content
 export default async function Page({ params }: Props) {
-  const markdownContent = await getData((await params).topic);
+  const topic = (await params).topic;
+  const markdownContent = await getData(topic);
 
   if (!markdownContent) return notFound();
 
-  console.log(markdownContent);
   return (
     <>
       <Markdown

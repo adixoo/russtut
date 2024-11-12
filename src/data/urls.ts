@@ -20,7 +20,7 @@ export interface Links {
 async function getUrls(): Promise<
   Record<string, { rank: number; chapter: string; content: string }>
 > {
-  let data: Root[];
+  let data: Root[] | { message: string };
 
   try {
     const url = `https://api.github.com/repos/adixoo/rust-for-beginners/contents/content?ref=main`;
@@ -31,10 +31,8 @@ async function getUrls(): Promise<
       },
       cache: "force-cache",
     });
-    data = await response.json();
-    //@ts-ignore
-    if (data.message) {
-      //@ts-ignore
+    data = (await response.json()) as Root[] | { message: string };
+    if ("message" in data) {
       throw new Error(data.message);
     }
   } catch (error) {

@@ -35,7 +35,11 @@ export default function RootLayout({
         >
           <header className="fixed left-0 top-0 z-50 w-full border-b bg-background">
             <div className="container mx-auto flex items-center justify-between py-3">
-              <Link href="/" className="text-xl font-bold text-primary">
+              <Link
+                href="/"
+                className="text-xl font-bold text-primary"
+                prefetch={false}
+              >
                 RussTut
               </Link>
 
@@ -69,7 +73,9 @@ export default function RootLayout({
                     data-rank={url.rank}
                     className="relative pl-6 text-sm hover:text-primary"
                   >
-                    <Link href={`/${key}`}>{url.chapter}</Link>
+                    <Link prefetch={false} href={`/${key}`}>
+                      {url.chapter}
+                    </Link>
                   </li>
                 ))}
               </ul>

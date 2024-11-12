@@ -52,7 +52,6 @@ export const MarkdownLink = ({
 }: {
   children: React.ReactNode;
 }) => {
-  console.log(props);
   return (
     <a
       {...props}
