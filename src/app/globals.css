@@ -1,21 +1,87 @@
+@import "@/css/prism.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: 240 8% 95%;
+    --foreground: 240 8% 5%;
+
+    --card: 240 10% 94%;
+    --card-foreground: 240 8% 5%;
+
+    --popover: 240 10% 94%;
+    --popover-foreground: 240 8% 5%;
+
+    --primary: 239 84% 67%;
+    --primary-foreground: 240 9% 98%;
+
+    --secondary: 240 12% 91%;
+    --secondary-foreground: 240 8% 5%;
+
+    --muted: 240 8% 91%;
+    --muted-foreground: 237 9% 45%;
+
+    --accent: 240 8% 91%;
+    --accent-foreground: 240 8% 5%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 240 9% 87%;
+    --input: 240 9% 80%;
+    --ring: 238 36% 72%;
+
+    --radius: 0.7rem;
+  }
+
+  .dark {
+    --background: 240 7% 8%;
+    --foreground: 180 9% 98%;
+
+    --card: 240 6% 10%;
+    --card-foreground: 180 9% 98%;
+
+    --popover: 240 6% 10%;
+    --popover-foreground: 180 9% 98%;
+
+    --primary: 230 94% 82%;
+    --primary-foreground: 240 9% 2%;
+
+    --secondary: 233 8% 19%;
+    --secondary-foreground: 180 9% 98%;
+
+    --muted: 229 7% 29%;
+    --muted-foreground: 231 8% 49%;
+
+    --accent: 230 71% 19%;
+    --accent-foreground: 180 9% 98%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 228 8% 12%;
+    --input: 232 9% 18%;
+    --ring: 230 93% 40%;
   }
 }
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    font-family: "Outfit", sans-serif;
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+    @apply bg-background;
+  }
+  code {
+    font-family: var(--font-mono) !important;
+  }
+
+  .content-list li:before {
+    content: attr(data-rank);
+    @apply absolute left-0 top-1/2 flex size-6 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-md bg-gray-200 text-xs dark:bg-black/50 dark:text-muted-foreground;
+  }
 }
