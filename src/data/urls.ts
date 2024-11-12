@@ -1,7 +1,26 @@
+interface Root {
+  name: string;
+  path: string;
+  sha: string;
+  size: number;
+  url: string;
+  html_url: string;
+  git_url: string;
+  download_url: string;
+  type: string;
+  _links: Links;
+}
+
+export interface Links {
+  self: string;
+  git: string;
+  html: string;
+}
+
 async function getUrls(): Promise<
   Record<string, { rank: number; chapter: string; content: string }>
 > {
-  let data: any;
+  let data: Root[];
 
   try {
     const url = `https://api.github.com/repos/adixoo/rust-for-beginners/contents/content?ref=main`;
@@ -13,7 +32,9 @@ async function getUrls(): Promise<
       cache: "force-cache",
     });
     data = await response.json();
+    //@ts-ignore
     if (data.message) {
+      //@ts-ignore
       throw new Error(data.message);
     }
   } catch (error) {
@@ -28,10 +49,10 @@ async function getUrls(): Promise<
   > = {};
   data.forEach(
     ({ name, download_url }: { name: string; download_url: string }) => {
-      let key = name.replace(".md", "");
-      let [chapterNumberRaw, ...chapterTitle] = key.split(" ");
-      let chapterNumber = parseInt(chapterNumberRaw.split("-")[1]);
-      let chapterName = chapterTitle.join(" ");
+      const key = name.replace(".md", "");
+      const [chapterNumberRaw, ...chapterTitle] = key.split(" ");
+      const chapterNumber = parseInt(chapterNumberRaw.split("-")[1]);
+      const chapterName = chapterTitle.join(" ");
       result[chapterName.toLowerCase().replace(/\s+/g, "-")] = {
         rank: chapterNumber,
         chapter: chapterName,
